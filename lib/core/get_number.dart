@@ -12,7 +12,7 @@ Future<NumberModel> getRandomNumber() async {
 
   Map data = jsonDecode(response.body);
 
-  return NumberModel(number: data['number'], text: data['text']);
+  return NumberModel.fromJson(data);
 }
 
 Future<NumberModel> getNumber(int number) async {
@@ -24,5 +24,5 @@ Future<NumberModel> getNumber(int number) async {
 
   Map data = jsonDecode(response.body);
 
-  return NumberModel(number: data['number'], text: data['text']);
+  return NumberModel.fromJson(data);
 }
