@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "number_trivia_app",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "number_trivia_app (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "number_trivia_app (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "number_trivia_app (test)",
+            "request": "launch",
+            "type": "dart",
+            "args": ["test"]
+        }
+    ]
+}

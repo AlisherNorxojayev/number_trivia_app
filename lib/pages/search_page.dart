@@ -65,9 +65,7 @@ class _SearchPageState extends State<SearchPage> {
                       keyboardType: TextInputType.number,
                       maxLength: 19,
                       controller: controller,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                      ),
+                      decoration: const InputDecoration(border: OutlineInputBorder()),
                     ),
                     const SizedBox(height: 10),
                     Row(
@@ -83,16 +81,11 @@ class _SearchPageState extends State<SearchPage> {
                             });
                           },
                           child: Container(
-                              color: Colors.green,
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              width: MediaQuery.of(context).size.width * 0.43,
-                              child: const Center(
-                                  child: Text(
-                                'Search',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ))),
+                            color: Colors.green,
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            width: MediaQuery.of(context).size.width * 0.43,
+                            child: const Center(child: Text('Search', style: TextStyle(color: Colors.white))),
+                          ),
                         ),
                         TextButton(
                           onPressed: () {
@@ -102,14 +95,11 @@ class _SearchPageState extends State<SearchPage> {
                             });
                           },
                           child: Container(
-                              color: Colors.grey,
-                              height: MediaQuery.of(context).size.height * 0.05,
-                              width: MediaQuery.of(context).size.width * 0.43,
-                              child: const Center(
-                                  child: Text(
-                                'Get random trivia',
-                                style: TextStyle(color: Colors.black),
-                              ))),
+                            color: Colors.grey,
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            width: MediaQuery.of(context).size.width * 0.43,
+                            child: const Center(child: Text('Get random trivia', style: TextStyle(color: Colors.black))),
+                          ),
                         ),
                       ],
                     )
