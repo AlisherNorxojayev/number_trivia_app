@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:number_trivia_app/core/get_number.dart';
+import 'package:provider/provider.dart';
 
 import '../models/number_model.dart';
 
@@ -29,35 +32,35 @@ class _SearchPageState extends State<SearchPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FutureBuilder(
-                  future: func,
-                  builder: (context, snapshot) {
-                    print(snapshot.connectionState);
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Builder(builder: (context) {
-                        return const CircularProgressIndicator();
-                      });
-                    }
-                    if (snapshot.hasData) {
-                      numberModel = snapshot.data;
-                    }
+              Consumer<NumberModel>(
+                builder: (context, value, child) {
+                  print(value.number);
+                  if (value.status == 'loading') {
+                    return Builder(builder: (context) {
+                      return const CircularProgressIndicator();
+                    });
+                  }
+                  if (value.status == 'loaded') {
+                    numberModel = value;
+                  }
 
-                    return Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            numberModel == null ? '' : numberModel!.number.toString(),
-                            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            numberModel == null ? 'Start Searching' : numberModel!.text,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    );
-                  }),
+                  return Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          value.number.toString(),
+                          style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          value.text,
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
               Expanded(
                 child: Column(
                   children: [
@@ -72,13 +75,14 @@ class _SearchPageState extends State<SearchPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         TextButton(
-                          onPressed: () {
+                          onPressed: () async {
                             int n = int.parse(controller.text);
                             Future<NumberModel> son = getNumber(n);
-                            setState(() {
-                              // numberModel = son;
-                              func = son;
-                            });
+
+                            Provider.of<NumberModel>(context, listen: false).changeStatus('loading');
+                            NumberModel mobel = await son;
+                            Provider.of<NumberModel>(context, listen: false).changeModel(mobel);
+                            Provider.of<NumberModel>(context, listen: false).changeStatus('loaded');
                           },
                           child: Container(
                             color: Colors.green,
@@ -88,11 +92,12 @@ class _SearchPageState extends State<SearchPage> {
                           ),
                         ),
                         TextButton(
-                          onPressed: () {
+                          onPressed: () async {
                             Future<NumberModel> son = getRandomNumber();
-                            setState(() {
-                              func = son;
-                            });
+                            Provider.of<NumberModel>(context, listen: false).changeStatus('loading');
+                            NumberModel mobel = await son;
+                            Provider.of<NumberModel>(context, listen: false).changeModel(mobel);
+                            Provider.of<NumberModel>(context, listen: false).changeStatus('loaded');
                           },
                           child: Container(
                             color: Colors.grey,

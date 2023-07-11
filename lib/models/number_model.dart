@@ -1,6 +1,21 @@
-class NumberModel {
-  final int number;
-  final String text;
+import 'package:flutter/material.dart';
+
+class NumberModel with ChangeNotifier {
+  int number;
+  String text;
+
+  String status = 'idle';
+
+  void changeStatus(String status) {
+    this.status = status;
+    notifyListeners();
+  }
+
+  void changeModel(NumberModel model){
+    number = model.number;
+    text = model.text;
+    notifyListeners();
+  }
 
   NumberModel({required this.number, required this.text});
 
